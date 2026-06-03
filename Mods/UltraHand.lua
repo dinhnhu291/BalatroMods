@@ -13,351 +13,100 @@
 ------------MOD CODE -------------------------
 
 G.X_CHEAT_SETTINGS = {
-
-    joker_spawn = false,
-
-    tarot_spawn = false,
-
-    planet_spawn = false,
-
-    spectral_spawn = false,
-
+    spawn = false,
     voucher_spawn = false
-
 }
-
-local CardClickRef = Card.click
-
+local CardClickRef = Card.click;
 function Card:click()
-
     if G.OVERLAY_MENU then
-
         local _card = self
-
         local center = _card.config.center
-
         -- Joker Collection
-
         if center.set == 'Joker' then
-
             if G.X_CHEAT_SETTINGS.joker_spawn and G.jokers then
-
                 add_joker(center.key)
-
                 _card:set_sprites(center)
-
-                return
-
-            else
-
-                unlock_card(center)
-
-                _card:set_sprites(center)
-
-            end
-
-        end
-
-        -- Tarot Collection
-
-        if center.set == 'Tarot' then
-
-            if G.X_CHEAT_SETTINGS.tarot_spawn and G.consumeables then
-
-                add_joker(center.key)
-
-                _card:set_sprites(center)
-
-                return
-
-            else
-
-                unlock_card(center)
-
-                _card:set_sprites(center)
-
-            end
-
-        end
-
-        -- Planet Collection
-
-        if center.set == 'Planet' then
-
-            if G.X_CHEAT_SETTINGS.planet_spawn and G.consumeables then
-
-                add_joker(center.key)
-
-                _card:set_sprites(center)
-
-                return
-
-            else
-
-                unlock_card(center)
-
-                _card:set_sprites(center)
-
-            end
-
-        end
-
-        -- Spectral Collection
-
-        if center.set == 'Spectral' then
-
-            if G.X_CHEAT_SETTINGS.spectral_spawn and G.consumeables then
-
-                add_joker(center.key)
-
-                _card:set_sprites(center)
-
-                return
-
-            else
-
-                unlock_card(center)
-
-                _card:set_sprites(center)
-
-            end
-
-        end
-
         -- Voucher Collection
-
         if center.set == 'Voucher' then
-
             if G.X_CHEAT_SETTINGS.voucher_spawn then
-
                 local voucher_area = G.shop_vouchers or G.consumeables
-
                 local card = SMODS.create_card({
-
                     set = 'Voucher',
-
                     key = center.key,
-
                     area = voucher_area,
-
                     skip_materialize = true,
-
                     allow_duplicates = true
-
                 })
-
                 card.shop_voucher = true
-
                 card:redeem()
-
                 card:remove()
-
                 _card:set_sprites(center)
-
                 return
-
             else
-
                 unlock_card(center)
-
                 _card:set_sprites(center)
-
             end
-
         end
-
     end
-
     return CardClickRef(self)
-
 end
-
 -------------------------------------------------
-
 -- Joker Collection Toggle
-
 -------------------------------------------------
+local spawnToggleLabel = 'Click on card to spawn'
 
-local createYourCollectionJokersRef = create_UIBox_your_collection_jokers
-
+local createYourCollectionJokersRef = create_UIBox_your_collection_jokers;
 function create_UIBox_your_collection_jokers()
-
-    local contents = createYourCollectionJokersRef()
-
-    local spawn_toggle = create_toggle({
-
-        label = 'Spawn Joker',
-
-        ref_table = G.X_CHEAT_SETTINGS,
-
-        ref_value = 'joker_spawn'
-
-    })
-
-    table.insert(
-
-        contents.nodes[1].nodes[1].nodes[1].nodes,
-
-        #contents.nodes[1].nodes[1].nodes[1].nodes + 1,
-
-        spawn_toggle
-
-    )
-
-    return contents
-
+	local contents = createYourCollectionJokersRef()
+	local spawn_toggle = create_toggle({label = spawnToggleLabel, ref_table = G.X_CHEAT_SETTINGS, ref_value = 'spawn'})
+	table.insert(contents.nodes[1].nodes[1].nodes[1].nodes, #contents.nodes[1].nodes[1].nodes[1].nodes + 1, spawn_toggle)
+	return contents
 end
 
--------------------------------------------------
-
--- Tarot Collection Toggle
-
--------------------------------------------------
-
-local createYourCollectionTarotsRef = create_UIBox_your_collection_tarots
-
+local createYourCollectionTarotsRef = create_UIBox_your_collection_tarots;
 function create_UIBox_your_collection_tarots()
-
-    local contents = createYourCollectionTarotsRef()
-
-    local spawn_toggle = create_toggle({
-
-        label = 'Spawn Tarot',
-
-        ref_table = G.X_CHEAT_SETTINGS,
-
-        ref_value = 'tarot_spawn'
-
-    })
-
-    table.insert(
-
-        contents.nodes[1].nodes[1].nodes[1].nodes,
-
-        #contents.nodes[1].nodes[1].nodes[1].nodes + 1,
-
-        spawn_toggle
-
-    )
-
-    return contents
-
+	local contents = createYourCollectionTarotsRef()
+	local spawn_toggle = create_toggle({label = spawnToggleLabel, ref_table = G.X_CHEAT_SETTINGS, ref_value = 'spawn'})
+	table.insert(contents.nodes[1].nodes[1].nodes[1].nodes, #contents.nodes[1].nodes[1].nodes[1].nodes + 1, spawn_toggle)
+	return contents
 end
 
--------------------------------------------------
-
--- Planet Collection Toggle
-
--------------------------------------------------
-
-local createYourCollectionPlanetsRef = create_UIBox_your_collection_planets
-
+local createYourCollectionPlanetsRef = create_UIBox_your_collection_planets;
 function create_UIBox_your_collection_planets()
-
-    local contents = createYourCollectionPlanetsRef()
-
-    local spawn_toggle = create_toggle({
-
-        label = 'Spawn Planet',
-
-        ref_table = G.X_CHEAT_SETTINGS,
-
-        ref_value = 'planet_spawn'
-
-    })
-
-    table.insert(
-
-        contents.nodes[1].nodes[1].nodes[1].nodes,
-
-        #contents.nodes[1].nodes[1].nodes[1].nodes + 1,
-
-        spawn_toggle
-
-    )
-
-    return contents
-
+	local contents = createYourCollectionPlanetsRef()
+	local spawn_toggle = create_toggle({label = spawnToggleLabel, ref_table = G.X_CHEAT_SETTINGS, ref_value = 'spawn'})
+	table.insert(contents.nodes[1].nodes[1].nodes[1].nodes, #contents.nodes[1].nodes[1].nodes[1].nodes + 1, spawn_toggle)
+	return contents
 end
 
--------------------------------------------------
-
--- Spectral Collection Toggle
-
--------------------------------------------------
-
-local createYourCollectionSpectralsRef = create_UIBox_your_collection_spectrals
-
+local createYourCollectionSpectralsRef = create_UIBox_your_collection_spectrals;
 function create_UIBox_your_collection_spectrals()
-
-    local contents = createYourCollectionSpectralsRef()
-
-    local spawn_toggle = create_toggle({
-
-        label = 'Spawn Spectral',
-
-        ref_table = G.X_CHEAT_SETTINGS,
-
-        ref_value = 'spectral_spawn'
-
-    })
-
-    table.insert(
-
-        contents.nodes[1].nodes[1].nodes[1].nodes,
-
-        #contents.nodes[1].nodes[1].nodes[1].nodes + 1,
-
-        spawn_toggle
-
-    )
-
-    return contents
-
+	local contents = createYourCollectionSpectralsRef()
+	local spawn_toggle = create_toggle({label = spawnToggleLabel, ref_table = G.X_CHEAT_SETTINGS, ref_value = 'spawn'})
+	table.insert(contents.nodes[1].nodes[1].nodes[1].nodes, #contents.nodes[1].nodes[1].nodes[1].nodes + 1, spawn_toggle)
+	return contents
 end
-
+        
 -------------------------------------------------
-
 -- Voucher Collection Toggle
-
 -------------------------------------------------
-
 if create_UIBox_your_collection_vouchers then
-
     local createYourCollectionVouchersRef =
-
         create_UIBox_your_collection_vouchers
-
     function create_UIBox_your_collection_vouchers()
-
         local contents = createYourCollectionVouchersRef()
-
         local spawn_toggle = create_toggle({
-
             label = 'Spawn Voucher',
-
             ref_table = G.X_CHEAT_SETTINGS,
-
             ref_value = 'voucher_spawn'
-
         })
-
         table.insert(
-
             contents.nodes[1].nodes[1].nodes[1].nodes,
-
             #contents.nodes[1].nodes[1].nodes[1].nodes + 1,
-
             spawn_toggle
-
         )
-
         return contents
-
     end
-
 end
-
 ----------------------------------------------
-
 ------------MOD CODE END----------------------
