@@ -19,13 +19,18 @@ G.X_CHEAT_SETTINGS = {
 local CardClickRef = Card.click;
 function Card:click()
     if G.OVERLAY_MENU then
-        local _card = self
-        local center = _card.config.center
+        local _card = self;
+        local center = _card.config.center;
         -- Joker Collection
-        if center.set == 'Joker' then
-            if G.X_CHEAT_SETTINGS.joker_spawn and G.jokers then
-                add_joker(center.key)
-                _card:set_sprites(center)
+        if G.X_CHEAT_SETTINGS.spawn then
+			if _card.ability.set == 'Joker' and G.jokers then
+				add_joker(_card.config.center.key)
+				_card:set_sprites(_card.config.center)
+			end
+			if _card.ability.consumeable and G.consumeables then
+				add_joker(_card.config.center.key)
+				_card:set_sprites(_card.config.center)
+			end
         -- Voucher Collection
         if center.set == 'Voucher' then
             if G.X_CHEAT_SETTINGS.voucher_spawn then
