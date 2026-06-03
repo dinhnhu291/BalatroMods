@@ -18,11 +18,10 @@ G.X_CHEAT_SETTINGS = {
 }
 local CardClickRef = Card.click;
 function Card:click()
-    if G.OVERLAY_MENU then
-        local _card = self;
-        local center = _card.config.center;
-        -- Joker Collection
-        if G.X_CHEAT_SETTINGS.spawn then
+	if G.OVERLAY_MENU then
+		local _card = self;
+		local center = _card.config.center;
+		if G.X_CHEAT_SETTINGS.spawn then
 			if _card.ability.set == 'Joker' and G.jokers then
 				add_joker(_card.config.center.key)
 				_card:set_sprites(_card.config.center)
@@ -31,9 +30,9 @@ function Card:click()
 				add_joker(_card.config.center.key)
 				_card:set_sprites(_card.config.center)
 			end
-        -- Voucher Collection
-        if center.set == 'Voucher' then
-            if G.X_CHEAT_SETTINGS.voucher_spawn then
+			-- Voucher Collection
+            if center.set == 'Voucher' then
+              if G.X_CHEAT_SETTINGS.voucher_spawn then
                 local voucher_area = G.shop_vouchers or G.consumeables
                 local card = SMODS.create_card({
                     set = 'Voucher',
@@ -47,13 +46,13 @@ function Card:click()
                 card:remove()
                 _card:set_sprites(center)
                 return
-            else
+              else
                 unlock_card(center)
                 _card:set_sprites(center)
-            end
+              end
 		else
 			unlock_card(_card.config.center)
-			_card:set_sprites(_card.config.center)
+            _card:set_sprites(_card.config.center)
 		end
 	end
 	CardClickRef(self)
