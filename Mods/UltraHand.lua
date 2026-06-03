@@ -51,9 +51,12 @@ function Card:click()
                 unlock_card(center)
                 _card:set_sprites(center)
             end
-        end
-    end
-    return CardClickRef(self)
+		else
+			unlock_card(_card.config.center)
+			_card:set_sprites(_card.config.center)
+		end
+	end
+	CardClickRef(self)
 end
 -------------------------------------------------
 -- Joker Collection Toggle
