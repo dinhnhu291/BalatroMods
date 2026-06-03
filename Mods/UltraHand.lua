@@ -30,6 +30,7 @@ function Card:click()
 				add_joker(_card.config.center.key)
 				_card:set_sprites(_card.config.center)
 			end
+		end
 			-- Voucher Collection
             if center.set == 'Voucher' then
               if G.X_CHEAT_SETTINGS.voucher_spawn then
