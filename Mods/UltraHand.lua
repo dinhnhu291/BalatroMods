@@ -24,9 +24,25 @@ function Card:click()
 				add_joker(_card.config.center.key)
 				_card:set_sprites(_card.config.center)
 			end
+		-- Voucher hook
+
+			if _card.ability.set == 'Voucher' then
+				local voucher_area = G.shop_vouchers or G.consumeables
+				local card = SMODS.create_card({
+					set = 'Voucher',
+					key = _card.config.center.key,
+					area = voucher_area,
+					skip_materialize = true,
+					allow_duplicates = true
+				})
+				card.shop_voucher = true
+				card:redeem()
+				card:remove()
+				_card:set_sprites(_card.config.center)
+			end
 		else
 			unlock_card(_card.config.center)
-            _card:set_sprites(_card.config.center)
+			_card:set_sprites(_card.config.center)
 		end
 	end
 	CardClickRef(self)
@@ -66,6 +82,23 @@ function create_UIBox_your_collection_spectrals()
 	return contents
 end
 
+local createYourCollectionVouchersRef = create_UIBox_your_collection_vouchers;
+function create_UIBox_your_collection_vouchers()
+
+	local contents = createYourCollectionVouchersRef()
+	local spawn_toggle = create_toggle({
+		label = spawnToggleLabel,
+		ref_table = G.X_CHEAT_SETTINGS,
+		ref_value = 'spawn'
+	})
+	table.insert(
+		contents.nodes[1].nodes[1].nodes[1].nodes,
+		#contents.nodes[1].nodes[1].nodes[1].nodes + 1,
+		spawn_toggle
+	)
+	return contents
+
+end
 
 
 ----------------------------------------------
